@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "example_id",
+    "decision",
+    "scores",
+    "issue_codes",
+    "short_reason",
+    "proposed_revision"
+  ],
+  "properties": {
+    "example_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision": {
+      "enum": [
+        "accept",
+        "revise",
+        "reject"
+      ]
+    },
+    "scores": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "correctness",
+        "grounding",
+        "instruction_compliance",
+        "greek_naturalness",
+        "completeness",
+        "safety_privacy",
+        "training_value"
+      ],
+      "properties": {
+        "correctness": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "grounding": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "instruction_compliance": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "greek_naturalness": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "completeness": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "safety_privacy": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "training_value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        }
+      }
+    },
+    "issue_codes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "short_reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "proposed_revision": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "For revise, the complete replacement assistant answer text, never editing instructions. Null for accept or reject. A revision is not accepted until deterministic validation and a fresh independent API review pass."
+    }
+  }
+}

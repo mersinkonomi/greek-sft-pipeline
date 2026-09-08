@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Canonical Greek SFT",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "messages",
+    "metadata"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "messages": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "prefixItems": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "role",
+            "content"
+          ],
+          "properties": {
+            "role": {
+              "const": "system"
+            },
+            "content": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "role",
+            "content"
+          ],
+          "properties": {
+            "role": {
+              "const": "user"
+            },
+            "content": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "role",
+            "content"
+          ],
+          "properties": {
+            "role": {
+              "const": "assistant"
+            },
+            "content": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "type": "object",
+      "required": [
+        "language",
+        "locale",
+        "source_name",
+        "source_file",
+        "source_record_id",
+        "source_record_hash",
+        "task_type",
+        "generation_method",
+        "generator_version",
+        "template_version",
+        "split_group",
+        "validation_status",
+        "review_status",
+        "grounded"
+      ],
+      "properties": {
+        "language": {
+          "const": "el"
+        },
+        "locale": {
+          "const": "el-GR"
+        },
+        "source_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_file": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+        },
+        "source_record_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_record_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "task_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generation_method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generator_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "template_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "split_group": {
+          "type": "string",
+          "minLength": 1
+        },
+        "validation_status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "grounded": {
+          "const": true
+        },
+        "grounding_span": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "message_index",
+            "start",
+            "end"
+          ],
+          "properties": {
+            "message_index": {
+              "const": 1
+            },
+            "start": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "end": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_family": {
+          "type": "string",
+          "minLength": 1
+        },
+        "license_status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "privacy_status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dedup_group": {
+          "type": "string",
+          "minLength": 1
+        },
+        "split": {
+          "enum": [
+            "train",
+            "validation",
+            "test"
+          ]
+        },
+        "source_line": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "source_file_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

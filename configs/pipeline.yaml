@@ -1,0 +1,55 @@
+version: 1.0.0
+source_root: /datadisk2/greekllm/GreekLLM_jsonl
+pipeline_root: /datadisk2/greekllm/GreekLLM_sft_pipeline
+seed: 1729
+workers: 4
+batch_size: 1000
+max_record_bytes: 33554432
+max_json_bytes: 67108864
+unknown_license_policy: quarantine
+unresolved_privacy_policy: quarantine
+allow_network: false
+ocr_repair:
+  enabled: false
+  reason: No selective repair method or gold evidence approved; derived NFC normalization
+    only.
+source_policies:
+  derived_artifact_roots:
+  - greek_training
+  - greek_training_temp
+  - .hf_cache
+  - .claude
+  - 00aa_tools
+  verified_licenses: {}
+  license_evidence: {}
+validation:
+  maximum_processing_error_rate: 0.01
+  minimum_greek_letter_ratio: 0.7
+  schema_path: schemas/canonical-sft.schema.json
+  expected_policy_quarantines_are_processing_failures: false
+dedup:
+  substring_min_chars: 240
+  minhash_threshold: 0.9
+  shingle_words: 5
+  minhash_permutations: 64
+  sentence_min_chars: 80
+  max_candidate_pairs: 5000000
+  seed: 1729
+splits:
+  train: 0.9
+  validation: 0.05
+  test: 0.05
+domain_caps: {}
+tokenizer:
+  local_path: /datadisk2/greekllm/models/google_gemma-4-E2B-it
+packing:
+  enabled: false
+  maximum_mean_fertility: 3.0
+evaluation:
+  greekmmlu_path: runtime/evaluations/GreekMMLU/evaluation.jsonl
+  private_paths: []
+  approved_fingerprints: []
+  coverage_confirmed_by_user: false
+review:
+  enabled: false
+  required_for_release: true
